@@ -3,7 +3,7 @@ package main
 // FIXME: we should panic less often!
 
 import (
-	//"errors"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -41,11 +41,11 @@ type CompiledConfigGeneral struct {
 
 func loadOrGenerateConfig() (*CompiledConfig, error) {
 	var userTOML string
-	//firstRun := false
+	firstRun := false
 
 	xdgConfigPath, err := xdg.Paths{XDGSuffix: "3mux"}.ConfigFile("config.toml")
 	if err != nil {
-	//	firstRun = true
+		firstRun = true
 
 		usr, err := user.Current()
 		if err != nil {
@@ -80,8 +80,7 @@ func loadOrGenerateConfig() (*CompiledConfig, error) {
 		return nil, fmt.Errorf("Failed to parse config TOML: %s", err)
 	}
 
-	//conf.General.EnableHelpBar = conf.General.EnableHelpBar || firstRun
-	conf.General.EnableHelpBar = conf.General.EnableHelpBar //GS
+	conf.General.EnableHelpBar = conf.General.EnableHelpBar || firstRun
 
 	return compileConfig(conf)
 }
@@ -204,31 +203,42 @@ enable-status-bar = true
 
 [keys]
 
-new-pane  = ['Alt+n', 'Alt+Enter']
+new-pane  = ['Alt+N', 'Alt+Enter']
 kill-pane = ['Alt+q']
 
-all-pane-kill = ['Alt+Shift+Q']
+all-pane-kill = ['Alt+Shift+Q'] 
 
-#all-session-kill-quit     = ['Clt+q']
-#all-session-keep-detach   = ['Clt+x']
+exit-window = ['Clt+Shift+X']      
 
-toggle-fullscreen = ['Alt+f']
+toggle-fullscreen = ['Alt+Shift+F']
 toggle-search = ['Alt+/']
 
 hide-help-bar = ['Alt+\']
 
-split-pane-vert  = ['Alt+v']
-split-pane-horiz = ['ALt+h']
+move-pane-up    = ['Alt+Shift+Up',    'Alt+Shift+K']
+move-pane-down  = ['Alt+Shift+Down',  'Alt+Shift+J']
+move-pane-left  = ['Alt+Shift+Left',  'Alt+Shift+H']
+move-pane-right = ['Alt+Shift+Right', 'Alt+Shift+L']
 
-move-pane-up    = ['Alt+Shift+Up'    ]
-move-pane-down  = ['Alt+Shift+Down'  ]
-move-pane-left  = ['Alt+Shift+Left'  ]
-move-pane-right = ['Alt+Shift+Right' ]
+move-selection-up    = ['Alt+Up',    'Alt+K']
+move-selection-down  = ['Alt+Down',  'Alt+J']
+move-selection-left  = ['Alt+Left',  'Alt+H']
+move-selection-right = ['Alt+Right', 'Alt+L']
 
-move-selection-up    = ['Alt+Up'    ]
-move-selection-down  = ['Alt+Down'  ]
-move-selection-left  = ['Alt+Left'  ]
-move-selection-right = ['Alt+Right' ]
+# NAME has no meaning apart from what may be displayed in a status bar
+# [modes.NAME]
+# mode-start = ['KEYCODE'] # type KEYCODE to start this mode
+# mode-sticky = STICKY
+# # if STICKY:
+# #   stay in this mode until we see an unrecognized key
+# # else:
+# #   exit this mode after the first keypress
+#
+# # do ACTION when we see KEYCODE while in this mode
+# ACTION = ['KEYCODE']
+# ACTION = ['KEYCODE']
+# ACTION = ['KEYCODE']
+# ...
 
 [modes.resize]
 mode-start  = ['Alt+R']
@@ -239,5 +249,20 @@ resize-down  = ['Down',  'k']
 resize-left  = ['Left',  'h']
 resize-right = ['Right', 'l']
 
+[modes.tmux]
+mode-start  = ['Ctrl+B']
+mode-sticky = false
 
+split-pane-vert  = ['%']
+split-pane-horiz = ['"']
+move-pane-left   = ['{']
+move-pane-right  = ['}']
+
+# [modes.screen]
+# mode-start  = ['Ctrl+A']
+# mode-sticky = false
+# 
+# split-pane-vert  = ['S']
+# split-pane-horiz = ['|']
+# cycle-selection-forward = ['Tab']
 `
