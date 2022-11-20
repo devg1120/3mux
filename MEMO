@@ -1,0 +1,20 @@
+
+ctrl + Shift + X   ...detach terminal
+ctrl + Shift + Q   ---window kill
+
+alt + Shift + q    ---single pane kill
+alt + Shift + Q    ---all    pane kill
+
+
+config.go
+
+serve.go
+
+                        if human == "Ctrl+X" {  // shell kill  //GS
+                                net.Dial("unix", sessionInfo.killClientPath)
+                                break     
+                        }
+tiling.go
+
+        "all-pane-kill": func(u *Universe) { u.AllPaneKill() },  //GS
+
