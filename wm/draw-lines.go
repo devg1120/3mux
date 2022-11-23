@@ -37,7 +37,8 @@ func (u *Universe) drawSelectionBorder() {
 	style := ecma48.Style{
 		Fg: ecma48.Color{
 			ColorMode: ecma48.ColorBit3Normal,
-			Code:      6,
+			//Code:      6,
+			Code:      4, //GS
 		},
 	}
 

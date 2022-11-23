@@ -145,7 +145,8 @@ func (u *Universe) drawStatusBar() {
 					},
 					Bg: ecma48.Color{
 						ColorMode: ecma48.ColorBit3Normal,
-						Code:      2,
+						//Code:      2,
+						Code:      4,  //GS
 					},
 				},
 			},

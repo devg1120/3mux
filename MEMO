@@ -1,9 +1,9 @@
 
-ctrl + Shift + X   ...detach terminal
-ctrl + Shift + Q   ---window kill
+ctrl +  x   ...detach terminal
+ctrl +  q   ---all pane kill & 3mux close
 
-alt + Shift + q    ---single pane kill
-alt + Shift + Q    ---all    pane kill
+alt +  q    ---single pane kill
+alt +  Q    ---all    pane kill
 
 
 config.go
@@ -18,3 +18,5 @@ tiling.go
 
         "all-pane-kill": func(u *Universe) { u.AllPaneKill() },  //GS
 
+color 
+https://qiita.com/PruneMazui/items/8a023347772620025ad6
